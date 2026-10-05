@@ -1,0 +1,37 @@
+name: Corrigir hero sem imagem local
+on:
+  push:
+    branches: [main]
+permissions:
+  contents: write
+jobs:
+  fix:
+    if: ${{ github.actor != 'github-actions[bot]' }}
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+      - name: Substituir hero por layout HTML robusto
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          old='<header class="hero"><img class="hero-img" src="/hero.jpg?v=4" alt="LB MOTOS • Honda • Catálogo comercial Outubro 2027"></header>'
+          new='''<header class="hero hero-premium"><div class="hero-inner"><div class="hero-copybox"><div class="hero-brand"><span class="lbmark">LB</span><span class="motostxt">MOTOS</span><span class="hero-divider"></span><span class="hondatxt">HONDA</span></div><div class="hero-kicker">HONDA 0 KM</div><div class="hero-sub">Catálogo comercial • Outubro 2027 • Modelos 2026 e 2027</div></div><div class="hero-bike"><img src="https://www.honda.com.br/motos/sites/hda/files/styles/product_200x128/public/2025-08/Imagem-Home-Honda-CG-160-Titan-Cinza-Metálico_0.webp" alt="Honda CG 160 Titan"></div></div></header>'''
+          if old not in s:
+              raise SystemExit('hero antigo nao encontrado')
+          s=s.replace(old,new,1)
+          css='''.hero-premium{background:radial-gradient(circle at 78% 44%,#351012 0,#120707 30%,#070707 62%,#030303 100%);overflow:hidden;border-bottom:5px solid #d71920}.hero-inner{max-width:1180px;margin:auto;min-height:360px;padding:46px 34px;display:flex;align-items:center;justify-content:space-between;gap:28px;position:relative}.hero-copybox{position:relative;z-index:2;max-width:690px}.hero-brand{display:flex;align-items:center;gap:16px;flex-wrap:wrap}.lbmark{font-size:clamp(54px,8vw,96px);font-weight:950;font-style:italic;letter-spacing:-.12em;color:#ef1b24;line-height:.85}.motostxt{font-size:clamp(38px,5.5vw,72px);font-weight:950;font-style:italic;letter-spacing:.02em;color:#fff;line-height:.9}.hero-divider{width:1px;height:58px;background:#666}.hondatxt{font-size:clamp(26px,3.5vw,46px);font-weight:950;color:#ef1b24;letter-spacing:.06em}.hero-kicker{font-size:clamp(44px,7vw,82px);font-weight:950;line-height:.9;margin-top:34px;color:#fff;letter-spacing:-.04em}.hero-sub{margin-top:22px;color:#d7d7d7;font-size:clamp(13px,1.8vw,19px)}.hero-bike{width:42%;min-width:300px;align-self:stretch;display:flex;align-items:center;justify-content:flex-end;filter:drop-shadow(0 18px 30px #0008)}.hero-bike img{width:100%;max-height:330px;object-fit:contain;transform:scale(1.15);transform-origin:right center}@media(max-width:700px){.hero-inner{min-height:430px;padding:28px 20px 22px;display:block}.hero-copybox{max-width:100%}.hero-brand{gap:10px}.hero-divider{height:38px}.hero-kicker{margin-top:24px}.hero-sub{max-width:310px}.hero-bike{position:absolute;right:-42px;bottom:0;width:62%;min-width:240px;height:245px;opacity:.92}.hero-bike img{max-height:240px;transform:scale(1.2)}.hero-copybox{padding-bottom:150px}}'''
+          s=s.replace('</style>',css+'</style>',1)
+          p.write_text(s)
+          PY
+      - name: Publicar e remover workflow temporario
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git rm .github/workflows/fix-hero-html.yml
+          git commit -m "Substitui banner quebrado por hero HTML responsivo"
+          git push origin main
