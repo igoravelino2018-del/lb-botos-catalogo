@@ -10,10 +10,10 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-serif;overflow-x:hidden}
 .hero{position:relative;width:100%;background:#fff;overflow:hidden}
-.hero picture,.hero img{display:block;width:100%}
-.hero img{height:auto;max-width:100%}
-.hero-cta{position:absolute;left:4.3%;bottom:5.1%;width:34%;height:9.5%;z-index:5;border-radius:14px;display:block}
-.hero-cta:focus{outline:3px solid #fff;box-shadow:0 0 0 5px #8f2227}
+.hero img{display:block;width:100%;max-width:100%;height:auto}
+.hot{position:absolute;z-index:5;display:block;border-radius:10px;touch-action:manipulation}
+.hot:focus{outline:3px solid #fff;box-shadow:0 0 0 5px #8f2227}
+.motos{left:55.5%;top:1.2%;width:8.5%;height:8.5%}.cond{left:64%;top:1.2%;width:9.8%;height:8.5%}.contato{left:74%;top:1.2%;width:8%;height:8.5%}.watop{right:3%;top:1%;width:18%;height:9.5%}.vermotos{left:6%;top:67%;width:16.5%;height:9%}.wahero{left:22%;top:67%;width:18%;height:9%}
 .loading{padding:32px;text-align:center;color:#777}
 #catalogMount .tools{position:relative!important;top:auto!important;margin:0!important;background:#8f2227!important;border:0!important;padding:14px 18px 12px!important;box-shadow:none!important}
 #catalogMount .toolrow{max-width:1180px!important;margin:auto!important;display:flex!important;align-items:center!important;gap:8px!important;flex-wrap:wrap!important}
@@ -43,8 +43,15 @@ body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-seri
 #catalogMount .details{min-height:40px!important;margin-top:9px!important}
 #catalogMount .interest{min-height:42px!important;margin-top:7px!important;background:#8f2227!important;border-radius:10px!important}
 #catalogMount .foot{margin-top:18px!important}
+@media(min-width:701px) and (max-width:1100px){
+  .hero{aspect-ratio:16/8.25}
+  .hero img{width:110%;max-width:none;margin-left:0}
+  .motos{left:61%;top:1%;width:9%;height:10%}.cond{left:70%;top:1%;width:10%;height:10%}.contato{left:81%;top:1%;width:8%;height:10%}.watop{right:0;top:1%;width:12%;height:11%}.vermotos{left:6.5%;top:69%;width:18%;height:11%}.wahero{left:24%;top:69%;width:20%;height:11%}
+}
 @media(max-width:700px){
-  .hero-cta{left:6.5%;bottom:3.7%;width:87%;height:6.5%;border-radius:18px}
+  .hero img{width:100%;max-width:100%;height:auto;margin-left:0}
+  .hot{border-radius:5px;min-height:34px}
+  .motos{left:54%;top:0;width:12%;height:12%}.cond{left:63%;top:0;width:13%;height:12%}.contato{left:73%;top:0;width:12%;height:12%}.watop{right:0;top:0;width:24%;height:14%}.vermotos{left:4%;width:22%;height:14%;top:63%}.wahero{left:21%;width:25%;height:14%;top:63%}
   #catalogMount .tools{padding:12px 12px 10px!important}
   #catalogMount .toolrow{display:block!important;width:100%!important}
   #catalogMount .search{width:100%!important;min-height:46px!important;font-size:16px!important;border-radius:11px!important}
@@ -69,10 +76,13 @@ body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-seri
   #catalogMount .buyways{gap:4px!important}
   #catalogMount .buyways span{font-size:9px!important;padding:5px 6px!important}
   #catalogMount .details,#catalogMount .interest{width:100%!important;min-height:44px!important;font-size:14px!important;touch-action:manipulation}
+  #catalogMount .details{margin-top:8px!important}
+  #catalogMount .interest{margin-top:7px!important;font-size:15px!important}
   #catalogMount .modal{padding:10px!important}
   #catalogMount .sheet{width:calc(100vw - 20px)!important;max-width:calc(100vw - 20px)!important;max-height:92dvh!important;padding:16px!important;border-radius:16px!important;overflow:auto!important}
   #catalogMount .gallery-main{height:220px!important;margin:10px 0!important;padding:10px!important}
   #catalogMount .gallery-thumb{width:58px!important;height:48px!important;flex-basis:58px!important}
+  #catalogMount .actions{gap:8px!important}
   #catalogMount .send,#catalogMount .close{min-height:44px!important;touch-action:manipulation}
 }
 @media(max-width:380px){
@@ -85,15 +95,21 @@ body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-seri
 </head>
 <body>
 <section class="hero" aria-label="LB MOTOS Honda 0 KM">
-  <picture>
-    <source media="(max-width:700px)" srcset="/assets/hero-mobile-v2.webp?v=5">
-    <img src="/assets/hero-desktop-v2.webp?v=5" alt="LB MOTOS com Laysa e Honda ADV 160">
-  </picture>
-  <a class="hero-cta" href="#catalogMount" aria-label="Quero minha Honda"></a>
+  <img id="heroImage" alt="LB MOTOS: Laysa com Honda ADV e Honda PCX">
+  <a class="hot motos" href="#catalogMount" aria-label="Motos"></a>
+  <a class="hot cond" href="#catalogMount" aria-label="Condições"></a>
+  <a class="hot contato" href="https://wa.me/5521970993229" aria-label="Contato"></a>
+  <a class="hot watop" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a>
+  <a class="hot vermotos" href="#catalogMount" aria-label="Ver motos 0 km"></a>
+  <a class="hot wahero" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a>
 </section>
 <div id="catalogMount"><div class="loading">Carregando catálogo...</div></div>
 <script>
 (async()=>{
+  try{
+    const ps=await Promise.all(Array.from({length:7},(_,i)=>fetch(`/assets/hero-chunks/part${String(i+1).padStart(2,'0')}.txt?v=4`).then(r=>{if(!r.ok)throw new Error('hero');return r.text()})));
+    document.getElementById('heroImage').src='data:image/webp;base64,'+ps.join('')
+  }catch(e){document.querySelector('.hero').innerHTML='<div class="loading">LB MOTOS</div>'}
   try{
     const html=await fetch('/catalog-core.html?v=4').then(r=>r.text());
     const doc=new DOMParser().parseFromString(html,'text/html');
