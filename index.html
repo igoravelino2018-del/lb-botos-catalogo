@@ -10,8 +10,9 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-serif;overflow-x:hidden}
 .hero{position:relative;width:100%;background:#fff;overflow:hidden}
+.hero-visual{position:relative;width:100%}
 .hero img{display:block;width:100%;height:auto;max-width:100%}
-.hero-subtitle{position:absolute;left:5.3%;top:58.2%;z-index:4;width:33%;margin:0;padding:3px 7px 5px 0;background:rgba(255,255,255,.94);color:#303030;font-weight:700;font-size:clamp(17px,1.65vw,29px);line-height:1.22;letter-spacing:-.02em}
+.hero-subtitle{position:absolute;left:5.3%;top:58.2%;z-index:4;width:33%;margin:0;padding:3px 8px 5px 0;background:rgba(255,255,255,.92);color:#303030;font-weight:700;font-size:clamp(18px,1.7vw,30px);line-height:1.2;letter-spacing:-.02em}
 .hero-cta{position:absolute;left:4.3%;bottom:5.1%;width:34%;height:9.5%;z-index:5;border-radius:14px;display:block}
 .hero-cta:focus{outline:3px solid #fff;box-shadow:0 0 0 5px #8f2227}
 .loading{padding:32px;text-align:center;color:#777}
@@ -44,7 +45,7 @@ body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-seri
 #catalogMount .interest{min-height:42px!important;margin-top:7px!important;background:#8f2227!important;border-radius:10px!important}
 #catalogMount .foot{margin-top:18px!important}
 @media(max-width:700px){
-  .hero-subtitle{left:4.5%;top:57%;width:43%;padding-right:4px;font-size:clamp(12px,3.1vw,18px);line-height:1.18;background:rgba(255,255,255,.96)}
+  .hero-subtitle{position:static;width:100%;margin:0;padding:12px 18px 14px;background:#fff;color:#303030;font-size:18px;line-height:1.28;font-weight:700;letter-spacing:-.01em;border-top:1px solid #eee}
   .hero-cta{left:4%;bottom:4%;width:42%;height:11%;border-radius:10px}
   #catalogMount .tools{padding:12px 12px 10px!important}
   #catalogMount .toolrow{display:block!important;width:100%!important}
@@ -77,7 +78,7 @@ body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-seri
   #catalogMount .send,#catalogMount .close{min-height:44px!important;touch-action:manipulation}
 }
 @media(max-width:380px){
-  .hero-subtitle{font-size:12px;width:45%}
+  .hero-subtitle{font-size:17px;padding:11px 14px 13px}
   #catalogMount .main{padding-left:10px!important;padding-right:10px!important}
   #catalogMount .catalog-head h1{font-size:26px!important}
   #catalogMount .pic{height:175px!important}
@@ -87,19 +88,21 @@ body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-seri
 </head>
 <body>
 <section class="hero" aria-label="LB MOTOS Honda 0 KM">
-  <img id="heroImage" alt="LB MOTOS com Laysa, Honda ADV e Honda PCX">
+  <div class="hero-visual">
+    <img id="heroImage" alt="LB MOTOS com Laysa, Honda ADV e Honda PCX">
+    <a class="hero-cta" href="#catalogMount" aria-label="Ver motos 0 km"></a>
+  </div>
   <p class="hero-subtitle">As melhores condições, atendimento de verdade e toda a qualidade Honda para você.</p>
-  <a class="hero-cta" href="#catalogMount" aria-label="Ver motos 0 km"></a>
 </section>
 <div id="catalogMount"><div class="loading">Carregando catálogo...</div></div>
 <script>
 (async()=>{
   try{
-    const ps=await Promise.all(Array.from({length:7},(_,i)=>fetch(`/assets/hero-chunks/part${String(i+1).padStart(2,'0')}.txt?v=6`,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hero');return r.text()})));
+    const ps=await Promise.all(Array.from({length:7},(_,i)=>fetch(`/assets/hero-chunks/part${String(i+1).padStart(2,'0')}.txt?v=7`,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hero');return r.text()})));
     document.getElementById('heroImage').src='data:image/webp;base64,'+ps.join('').replace(/\s/g,'');
   }catch(e){
     const img=document.getElementById('heroImage');
-    img.src='/assets/hero-desktop-v2.webp?v=6';
+    img.src='/assets/hero-desktop-v2.webp?v=7';
   }
   try{
     const html=await fetch('/catalog-core.html?v=4').then(r=>r.text());
