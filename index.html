@@ -10,11 +10,14 @@
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-serif;overflow-x:hidden}
 .hero{position:relative;width:100%;background:#fff;overflow:hidden}
-.hero-visual{position:relative;width:100%}
+.hero-visual{position:relative;width:100%;overflow:hidden}
 .hero img{display:block;width:100%;height:auto;max-width:100%}
-.hero-subtitle{position:absolute;left:5.3%;top:58.2%;z-index:4;width:33%;margin:0;padding:3px 8px 5px 0;background:rgba(255,255,255,.92);color:#303030;font-weight:700;font-size:clamp(18px,1.7vw,30px);line-height:1.2;letter-spacing:-.02em}
-.hero-cta{position:absolute;left:4.3%;bottom:5.1%;width:34%;height:9.5%;z-index:5;border-radius:14px;display:block}
-.hero-cta:focus{outline:3px solid #fff;box-shadow:0 0 0 5px #8f2227}
+.mobile-brandbar,.mobile-hero-copy{display:none}
+.desktop-subtitle{position:absolute;left:5.2%;top:58%;z-index:4;width:32%;margin:0;padding:6px 10px 7px 0;background:rgba(255,255,255,.96);color:#303030;font-weight:750;font-size:clamp(18px,1.72vw,30px);line-height:1.2;letter-spacing:-.02em}
+.hero-hot{position:absolute;z-index:5;display:block;border-radius:12px}
+.hero-hot:focus{outline:3px solid #fff;box-shadow:0 0 0 5px #8f2227}
+.hero-primary{left:5%;bottom:10.4%;width:17.5%;height:8.8%}
+.hero-whatsapp{left:23.2%;bottom:10.4%;width:19%;height:8.8%}
 .loading{padding:32px;text-align:center;color:#777}
 #catalogMount .tools{position:relative!important;top:auto!important;margin:0!important;background:#8f2227!important;border:0!important;padding:14px 18px 12px!important;box-shadow:none!important}
 #catalogMount .toolrow{max-width:1180px!important;margin:auto!important;display:flex!important;align-items:center!important;gap:8px!important;flex-wrap:wrap!important}
@@ -45,8 +48,25 @@ body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-seri
 #catalogMount .interest{min-height:42px!important;margin-top:7px!important;background:#8f2227!important;border-radius:10px!important}
 #catalogMount .foot{margin-top:18px!important}
 @media(max-width:700px){
-  .hero-subtitle{position:static;width:100%;margin:0;padding:12px 18px 14px;background:#fff;color:#303030;font-size:18px;line-height:1.28;font-weight:700;letter-spacing:-.01em;border-top:1px solid #eee}
-  .hero-cta{left:4%;bottom:4%;width:42%;height:11%;border-radius:10px}
+  .hero{background:#fff}
+  .desktop-subtitle,.hero-hot{display:none}
+  .mobile-brandbar{height:62px;padding:0 16px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid #eee;background:#fff;position:relative;z-index:3}
+  .mobile-brand{display:flex;align-items:baseline;gap:7px;color:#8f2227;font-family:Georgia,'Times New Roman',serif;font-size:24px;line-height:1;font-weight:700;letter-spacing:-.03em;white-space:nowrap}
+  .mobile-brand small{font-family:Inter,Arial,sans-serif;font-size:9px;line-height:1;font-weight:800;letter-spacing:.03em;border-top:2px solid #8f2227;border-bottom:2px solid #8f2227;padding:3px 0 2px}
+  .mobile-wa-top{display:inline-flex;align-items:center;justify-content:center;min-height:36px;padding:0 12px;border-radius:9px;background:#8f2227;color:#fff;text-decoration:none;font-size:12px;font-weight:750;white-space:nowrap}
+  .hero-visual{height:285px;background:#7f171d}
+  .hero-visual img{position:absolute;width:auto;max-width:none;height:365px;right:-118px;top:-38px}
+  .mobile-hero-copy{display:block;padding:20px 18px 18px;background:#fff}
+  .mobile-kicker{display:inline-block;margin-bottom:8px;color:#8f2227;font-size:12px;font-weight:850;letter-spacing:.08em;text-transform:uppercase}
+  .mobile-hero-copy h1{margin:0;color:#8f2227;font-size:clamp(30px,8.2vw,38px);line-height:.98;letter-spacing:-.04em;font-weight:900;max-width:620px}
+  .mobile-hero-copy p{margin:13px 0 0;color:#353535;font-size:18px;line-height:1.28;font-weight:650;letter-spacing:-.01em}
+  .mobile-actions{display:grid;grid-template-columns:1fr 1fr;gap:9px;margin-top:17px}
+  .mobile-actions a{min-height:48px;border-radius:11px;display:flex;align-items:center;justify-content:center;text-decoration:none;font-size:14px;font-weight:800;text-align:center;padding:0 10px}
+  .mobile-actions .primary{background:#8f2227;color:#fff}
+  .mobile-actions .secondary{background:#fff;color:#8f2227;border:1.5px solid #8f2227}
+  .mobile-benefits{display:grid;grid-template-columns:1fr 1fr;gap:7px 10px;margin-top:15px;padding-top:14px;border-top:1px solid #ececec}
+  .mobile-benefits span{font-size:12px;color:#444;font-weight:650;display:flex;align-items:center;gap:6px}
+  .mobile-benefits span:before{content:'✓';display:inline-flex;width:19px;height:19px;border-radius:50%;align-items:center;justify-content:center;background:#f2e8e9;color:#8f2227;font-size:11px;font-weight:900;flex:0 0 auto}
   #catalogMount .tools{padding:12px 12px 10px!important}
   #catalogMount .toolrow{display:block!important;width:100%!important}
   #catalogMount .search{width:100%!important;min-height:46px!important;font-size:16px!important;border-radius:11px!important}
@@ -78,7 +98,13 @@ body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-seri
   #catalogMount .send,#catalogMount .close{min-height:44px!important;touch-action:manipulation}
 }
 @media(max-width:380px){
-  .hero-subtitle{font-size:17px;padding:11px 14px 13px}
+  .mobile-brand{font-size:21px}
+  .mobile-wa-top{font-size:11px;padding:0 10px}
+  .hero-visual{height:255px}
+  .hero-visual img{height:335px;right:-112px;top:-35px}
+  .mobile-hero-copy{padding:18px 14px 16px}
+  .mobile-hero-copy h1{font-size:29px}
+  .mobile-hero-copy p{font-size:17px}
   #catalogMount .main{padding-left:10px!important;padding-right:10px!important}
   #catalogMount .catalog-head h1{font-size:26px!important}
   #catalogMount .pic{height:175px!important}
@@ -88,21 +114,38 @@ body{margin:0;background:#f7f7f7;color:#171717;font-family:Inter,Arial,sans-seri
 </head>
 <body>
 <section class="hero" aria-label="LB MOTOS Honda 0 KM">
+  <div class="mobile-brandbar">
+    <div class="mobile-brand">LB MOTOS <small>MULTIMARCAS</small></div>
+    <a class="mobile-wa-top" href="https://wa.me/5521970993229">WhatsApp</a>
+  </div>
   <div class="hero-visual">
     <img id="heroImage" alt="LB MOTOS com Laysa, Honda ADV e Honda PCX">
-    <a class="hero-cta" href="#catalogMount" aria-label="Ver motos 0 km"></a>
+    <p class="desktop-subtitle">As melhores condições, atendimento de verdade e toda a qualidade Honda para você.</p>
+    <a class="hero-hot hero-primary" href="#catalogMount" aria-label="Ver motos 0 km"></a>
+    <a class="hero-hot hero-whatsapp" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a>
   </div>
-  <p class="hero-subtitle">As melhores condições, atendimento de verdade e toda a qualidade Honda para você.</p>
+  <div class="mobile-hero-copy">
+    <span class="mobile-kicker">Honda 0 KM na LB Motos</span>
+    <h1>VENHA CONQUISTAR A SUA HONDA 0 KM AQUI NA LB MOTOS</h1>
+    <p>As melhores condições, atendimento de verdade e toda a qualidade Honda para você.</p>
+    <div class="mobile-actions">
+      <a class="primary" href="#catalogMount">Ver motos 0 km</a>
+      <a class="secondary" href="https://wa.me/5521970993229">Falar no WhatsApp</a>
+    </div>
+    <div class="mobile-benefits">
+      <span>Financiamento</span><span>Consórcio</span><span>Cartão</span><span>À vista</span>
+    </div>
+  </div>
 </section>
 <div id="catalogMount"><div class="loading">Carregando catálogo...</div></div>
 <script>
 (async()=>{
   try{
-    const ps=await Promise.all(Array.from({length:7},(_,i)=>fetch(`/assets/hero-chunks/part${String(i+1).padStart(2,'0')}.txt?v=7`,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hero');return r.text()})));
+    const ps=await Promise.all(Array.from({length:7},(_,i)=>fetch(`/assets/hero-chunks/part${String(i+1).padStart(2,'0')}.txt?v=8`,{cache:'no-store'}).then(r=>{if(!r.ok)throw new Error('hero');return r.text()})));
     document.getElementById('heroImage').src='data:image/webp;base64,'+ps.join('').replace(/\s/g,'');
   }catch(e){
     const img=document.getElementById('heroImage');
-    img.src='/assets/hero-desktop-v2.webp?v=7';
+    img.src='/assets/hero-desktop-v2.webp?v=8';
   }
   try{
     const html=await fetch('/catalog-core.html?v=4').then(r=>r.text());
