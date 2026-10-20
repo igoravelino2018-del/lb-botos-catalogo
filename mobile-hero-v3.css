@@ -1,0 +1,25 @@
+@media (max-width:700px){
+  .mobile-hero{display:block;position:relative;height:min(1040px,142vh);min-height:900px;background:#fff;overflow:hidden;border-bottom:0}
+  .m-head{position:relative;z-index:20;height:76px;padding:0 18px;background:rgba(255,255,255,.98);border-bottom:1px solid #eee}
+  .m-logo{font-size:27px}
+  .m-topwa{min-height:44px;padding:0 16px;border-radius:12px;font-size:13px}
+  .m-art{position:absolute;z-index:1;left:0;right:0;top:76px;bottom:0;height:auto;min-height:0;max-height:none;background:#f7f2f2;overflow:hidden}
+  .m-art img{display:block;width:100%;height:100%;object-fit:cover;object-position:64% 55%;transform:scale(1.02)}
+  .m-art:after{content:"";position:absolute;inset:0;z-index:2;pointer-events:none;background:linear-gradient(180deg,#fff 0%,rgba(255,255,255,.98) 28%,rgba(255,255,255,.88) 39%,rgba(255,255,255,.18) 56%,rgba(255,255,255,0) 70%)}
+  .m-copy{position:absolute;z-index:6;top:108px;left:0;right:0;padding:0 24px;background:transparent}
+  .m-copy h1{max-width:610px;margin:0;color:#a31920;font-size:clamp(39px,10.7vw,52px);line-height:.92;letter-spacing:-.045em;font-weight:950;text-shadow:0 1px 0 #fff}
+  .m-copy p{max-width:520px;margin:15px 0 0;color:#333;font-size:clamp(18px,4.7vw,23px);line-height:1.18;font-weight:650;text-shadow:0 1px 2px #fff}
+  .m-actions{position:absolute;z-index:8;left:0;right:0;bottom:86px;display:grid;grid-template-columns:1fr 1fr;gap:10px;padding:0 20px;background:linear-gradient(180deg,transparent,#fff 38%);padding-top:44px}
+  .m-actions a{min-height:58px;border-radius:12px;font-size:15px;font-weight:900;box-shadow:0 5px 18px rgba(0,0,0,.08)}
+  .m-benefits{position:absolute;z-index:9;left:0;right:0;bottom:0;height:86px;display:grid;grid-template-columns:repeat(4,1fr);gap:0;padding:10px 12px 14px;background:#fff;border-top:1px solid #eee}
+  .m-benefits span{display:flex;flex-direction:column;justify-content:center;gap:4px;text-align:center;font-size:11px;line-height:1.05}
+  .m-benefits span:before{margin:auto;width:24px;height:24px}
+}
+@media (max-width:430px){
+  .mobile-hero{height:940px;min-height:940px}
+  .m-head{height:70px;padding:0 15px}.m-logo{font-size:24px}.m-logo small{font-size:8px}.m-topwa{min-height:40px;padding:0 12px;font-size:12px}
+  .m-art{top:70px}.m-copy{top:98px;padding:0 20px}.m-copy h1{font-size:39px}.m-copy p{font-size:18px;max-width:330px}
+  .m-actions{bottom:82px;padding-left:16px;padding-right:16px}.m-actions a{min-height:54px;font-size:14px}
+  .m-benefits{height:82px;padding-left:8px;padding-right:8px}.m-benefits span{font-size:10px}
+}
+@media (max-width:380px){.mobile-hero{height:900px;min-height:900px}.m-copy h1{font-size:35px}.m-copy p{font-size:17px}.m-actions a{font-size:13px}}
