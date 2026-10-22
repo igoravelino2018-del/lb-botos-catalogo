@@ -1,0 +1,30 @@
+name: Cover baked mobile buttons
+on:
+  push:
+    paths:
+      - '.github/workflows/cover-baked-mobile-buttons.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Hide baked buttons under real CTAs
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          css='''\n/* hide baked-in mobile hero buttons */\n@media(max-width:700px){\n  .mobile-hero img{clip-path:inset(0 0 7.4% 0)!important}\n  .m-primary,.m-whatsapp{z-index:20!important}\n}\n'''
+          if '/* hide baked-in mobile hero buttons */' not in s:
+              s=s.replace('</style>',css+'\n</style>',1)
+              p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'fix: hide baked mobile hero buttons' || exit 0
+          git push
