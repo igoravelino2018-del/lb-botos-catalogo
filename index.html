@@ -111,6 +111,13 @@
   .m-whatsapp:after{content:none!important}
 }
 
+
+/* hide baked-in mobile hero buttons */
+@media(max-width:700px){
+  .mobile-hero img{clip-path:inset(0 0 7.4% 0)!important}
+  .m-primary,.m-whatsapp{z-index:20!important}
+}
+
 </style>
 </head>
 <body>
