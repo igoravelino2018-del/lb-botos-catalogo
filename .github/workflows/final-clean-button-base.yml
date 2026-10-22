@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply final mobile button polish
+      - name: Apply final mobile CTA design
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          css='''\n/* mobile button polish v4 */\n@media(max-width:700px){\n  .mobile-hero{background:#fff!important}\n  .mobile-hero img{clip-path:inset(0 0 8.8% 0)!important}\n  .m-primary,.m-whatsapp{\n    z-index:40!important;\n    top:92.1%!important;\n    height:5.35%!important;\n    border-radius:6px!important;\n    box-shadow:none!important;\n    font-family:Inter,Arial,sans-serif!important;\n    font-weight:800!important;\n    font-size:clamp(11px,3vw,14px)!important;\n    letter-spacing:-.01em!important;\n    line-height:1!important;\n  }\n  .m-primary{\n    left:4%!important;\n    width:44.7%!important;\n    background:#c8101e!important;\n    color:#fff!important;\n    border:1px solid #c8101e!important;\n  }\n  .m-primary:after{font-size:1.18em!important;margin-left:6px!important}\n  .m-whatsapp{\n    left:51.3%!important;\n    width:44.7%!important;\n    background:#fff!important;\n    color:#b30d18!important;\n    border:1px solid #b30d18!important;\n  }\n}\n'''
-          if '/* mobile button polish v4 */' not in s:
+          css='''\n/* mobile CTA final v5 */\n@media(max-width:700px){\n  .mobile-hero{background:#fff!important}\n  .m-primary,.m-whatsapp{\n    display:flex!important;\n    align-items:center!important;\n    justify-content:center!important;\n    z-index:50!important;\n    top:90.95%!important;\n    height:6.7%!important;\n    border-radius:10px!important;\n    font-family:Inter,Arial,sans-serif!important;\n    font-size:clamp(12px,3.35vw,15px)!important;\n    font-weight:850!important;\n    letter-spacing:-.015em!important;\n    line-height:1!important;\n    text-decoration:none!important;\n    box-shadow:0 4px 10px rgba(0,0,0,.10),0 0 0 9px #fff!important;\n    overflow:hidden!important;\n  }\n  .m-primary{\n    left:3.6%!important;\n    width:45.6%!important;\n    background:linear-gradient(180deg,#d41320 0%,#bd0d19 100%)!important;\n    color:#fff!important;\n    border:1px solid #b40b16!important;\n  }\n  .m-primary:before{content:'Ver motos 0 km'!important;white-space:nowrap!important}\n  .m-primary:after{content:'›'!important;font-size:1.35em!important;margin-left:7px!important;margin-top:-1px!important}\n  .m-whatsapp{\n    left:51.2%!important;\n    width:45.2%!important;\n    background:#fff!important;\n    color:#b30d18!important;\n    border:2px solid #c8101e!important;\n  }\n  .m-whatsapp:before{content:'Falar no WhatsApp'!important;white-space:nowrap!important}\n  .m-primary:active,.m-whatsapp:active{transform:translateY(1px)!important}\n}\n'''
+          if '/* mobile CTA final v5 */' not in s:
               s=s.replace('</style>',css+'\n</style>',1)
           p.write_text(s)
           PY
@@ -26,5 +26,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'fix: polish final mobile CTA buttons' || exit 0
+          git commit -m 'fix: improve mobile hero CTA design' || exit 0
           git push
