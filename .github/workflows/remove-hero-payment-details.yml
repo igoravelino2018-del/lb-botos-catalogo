@@ -17,12 +17,11 @@ jobs:
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          marker='#catalogMount .trust{gap:6px!important;margin-top:10px!important}'
-          replacement='#catalogMount .trust{display:none!important;gap:6px!important;margin-top:10px!important}'
-          if marker in s:
-              s=s.replace(marker,replacement,1)
-          elif '#catalogMount .trust{display:none!important' not in s:
-              s=s.replace('</style>','#catalogMount .trust{display:none!important}\n</style>',1)
+          rule='#catalogMount .trust{display:none!important}'
+          # Keep the desktop rule and add a final override after the mobile media rule,
+          # so the payment badges stay hidden on every screen size.
+          if s.count(rule) < 2:
+              s=s.replace('</style>',rule+'\n</style>',1)
           p.write_text(s)
           PY
       - name: Commit changes
@@ -30,5 +29,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git diff --cached --quiet || git commit -m "ui: remove payment badges from top area"
+          git diff --cached --quiet || git commit -m "ui: hide top payment badges on all screens"
           git push
