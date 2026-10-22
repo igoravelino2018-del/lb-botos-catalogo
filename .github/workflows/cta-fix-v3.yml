@@ -1,0 +1,37 @@
+name: CTA fix v3
+on:
+  push:
+    paths:
+      - .github/workflows/cta-fix-v3.yml
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path("index.html")
+          s = p.read_text()
+          css = """
+/* cta fix v3 */
+@media(max-width:700px){
+  .mobile-hero{background:#fff!important}
+  .mobile-hero img{clip-path:inset(0 0 8.5% 0)!important}
+  .m-primary,.m-whatsapp{top:92%!important;height:5.4%!important;border-radius:6px!important;box-shadow:none!important;font-weight:800!important;font-size:clamp(11px,3vw,14px)!important;z-index:30!important}
+  .m-primary{left:4%!important;width:44.5%!important;background:#c8101e!important;color:#fff!important;border:1px solid #c8101e!important}
+  .m-whatsapp{left:51.5%!important;width:44.5%!important;background:#fff!important;color:#b30d18!important;border:1px solid #b30d18!important}
+}
+"""
+          if "/* cta fix v3 */" not in s:
+              s = s.replace("</style>", css + "\n</style>", 1)
+              p.write_text(s)
+          PY
+      - run: |
+          git config user.name github-actions[bot]
+          git config user.email 41898282+github-actions[bot]@users.noreply.github.com
+          git add index.html
+          git commit -m "fix: clean mobile CTA styling" || exit 0
+          git push
