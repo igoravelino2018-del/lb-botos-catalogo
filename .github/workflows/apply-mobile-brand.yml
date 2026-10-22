@@ -1,0 +1,34 @@
+name: Apply mobile brand
+on:
+  push:
+    paths:
+      - '.github/workflows/apply-mobile-brand.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply brand header
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          css=Path('assets/mobile-brand.css').read_text()
+          if '/* branded mobile header */' not in s:
+              s=s.replace('</style>', css+'\n</style>', 1)
+          old='<div class="mobile-hero"><img id="heroImageMobile"'
+          new='<div class="mobile-hero"><span class="brand-sub">MULTIMARCAS</span><span class="brand-accent"></span><img id="heroImageMobile"'
+          if old in s:
+              s=s.replace(old,new,1)
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'ui: improve LB Motos Multimarcas mobile header'
+          git push
