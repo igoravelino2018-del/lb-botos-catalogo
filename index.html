@@ -219,10 +219,67 @@
   .m-primary:active,.m-whatsapp:active{transform:translateY(1px)!important}
 }
 
+
+/* mobile CTA final v6 */
+@media(max-width:700px){
+  .cta-clean-base{
+    display:block!important;
+    position:absolute!important;
+    left:0!important;
+    top:90.25%!important;
+    width:100%!important;
+    height:9.1%!important;
+    background:#fff!important;
+    border-radius:0!important;
+    box-shadow:none!important;
+    z-index:45!important;
+    pointer-events:none!important;
+  }
+  .m-primary,.m-whatsapp{
+    display:flex!important;
+    align-items:center!important;
+    justify-content:center!important;
+    z-index:50!important;
+    top:91.05%!important;
+    height:6.55%!important;
+    border-radius:11px!important;
+    font-family:Inter,Arial,sans-serif!important;
+    font-size:clamp(12px,3.3vw,15px)!important;
+    font-weight:850!important;
+    letter-spacing:-.015em!important;
+    line-height:1!important;
+    text-decoration:none!important;
+    text-shadow:none!important;
+    outline:none!important;
+    filter:none!important;
+    box-shadow:0 3px 9px rgba(0,0,0,.10)!important;
+    overflow:hidden!important;
+  }
+  .m-primary{
+    left:3.2%!important;
+    width:46.2%!important;
+    background:linear-gradient(180deg,#d71422 0%,#c10d19 100%)!important;
+    color:#fff!important;
+    border:1px solid #b90b16!important;
+  }
+  .m-primary:before{content:'Ver motos 0 km'!important;white-space:nowrap!important}
+  .m-primary:after{content:'›'!important;font-size:1.35em!important;margin-left:7px!important;margin-top:-1px!important}
+  .m-whatsapp{
+    left:50.6%!important;
+    width:46.2%!important;
+    background:#fff!important;
+    color:#b30d18!important;
+    border:1.6px solid #c8101e!important;
+  }
+  .m-whatsapp:before{content:'Falar no WhatsApp'!important;white-space:nowrap!important}
+  .m-whatsapp:after{content:none!important}
+  .m-primary:active,.m-whatsapp:active{transform:translateY(1px)!important}
+}
+
 </style>
 </head>
 <body>
-<section class="hero" aria-label="LB MOTOS Honda 0 KM"><div class="desktop-hero"><img id="heroImageDesktop" alt="LB MOTOS com Laysa, Honda ADV e Honda PCX"><p class="desktop-subtitle">As melhores condições, atendimento de verdade e toda a qualidade Honda para você.</p><a class="hero-hot hero-primary" href="#catalogMount" aria-label="Ver motos 0 km"></a><a class="hero-hot hero-whatsapp" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a></div><div class="mobile-hero"><span class="brand-sub">MULTIMARCAS</span><span class="brand-accent"></span><img id="heroImageMobile" alt="LB MOTOS: Honda 0 KM com Laysa, ADV e PCX"><a class="m-hot m-topwa" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a><a class="m-hot m-primary" href="#catalogMount" aria-label="Ver motos 0 km"></a><a class="m-hot m-whatsapp" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a></div></section>
+<section class="hero" aria-label="LB MOTOS Honda 0 KM"><div class="desktop-hero"><img id="heroImageDesktop" alt="LB MOTOS com Laysa, Honda ADV e Honda PCX"><p class="desktop-subtitle">As melhores condições, atendimento de verdade e toda a qualidade Honda para você.</p><a class="hero-hot hero-primary" href="#catalogMount" aria-label="Ver motos 0 km"></a><a class="hero-hot hero-whatsapp" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a></div><div class="mobile-hero"><span class="brand-sub">MULTIMARCAS</span><span class="brand-accent"></span><img id="heroImageMobile" alt="LB MOTOS: Honda 0 KM com Laysa, ADV e PCX"><a class="m-hot m-topwa" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a><span class="cta-clean-base" aria-hidden="true"></span><a class="m-hot m-primary" href="#catalogMount" aria-label="Ver motos 0 km"></a><a class="m-hot m-whatsapp" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a></div></section>
 <section class="buy-guide" aria-label="Entenda as formas de compra"><div class="buy-guide-inner"><div class="buy-guide-head"><div><h2>Como você quer comprar sua Honda?</h2><p>Entenda as opções em poucos segundos.</p></div></div><div class="guide-options"><button class="guide-btn" type="button" data-guide="financiamento"><span><strong>Financiamento</strong><small>Entenda como funciona</small></span><span class="guide-arrow">›</span></button><button class="guide-btn" type="button" data-guide="consorcio"><span><strong>Consórcio</strong><small>Entenda como funciona</small></span><span class="guide-arrow">›</span></button></div></div></section>
 <section class="launches" aria-label="Lançamentos Honda em destaque"><div class="launches-inner"><div class="launches-head"><div><span class="launches-kicker">Novidades</span><h2>Lançamentos Honda em destaque</h2><p>Confira os modelos que acabaram de chegar à vitrine da LB Motos.</p></div></div><div class="launch-grid"><article class="launch-card"><div class="launch-pic"><span class="launch-badge">LANÇAMENTO</span><img loading="lazy" src="https://www.honda.com.br/motos/sites/hda/files/2026-10/CG%20Titan%203.4%20FD%20Azul%20copy.webp" alt="Honda CG 160 Titan"></div><div class="launch-info"><h3>CG 160 Titan</h3><p>Design esportivo, tecnologia e a tradição da linha CG.</p><a class="launch-action" href="https://wa.me/5521970993229?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20a%20CG%20160%20Titan.">Tenho interesse</a></div></article><article class="launch-card"><div class="launch-pic"><span class="launch-badge">EDIÇÃO ESPECIAL</span><img loading="lazy" src="https://www.honda.com.br/motos/sites/hda/files/2026-02/Moto-cg-vis%C3%A3o-lateral-direita.webp" alt="Honda CG 160 50 Anos"></div><div class="launch-info"><h3>CG 160 50 Anos</h3><p>Edição comemorativa com identidade exclusiva para celebrar 50 anos da CG.</p><a class="launch-action" href="https://wa.me/5521970993229?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20a%20CG%20160%2050%20Anos.">Tenho interesse</a></div></article><article class="launch-card"><div class="launch-pic"><span class="launch-badge">LANÇAMENTO</span><img loading="lazy" src="https://www.honda.com.br/motos/sites/hda/files/2026-05/Home%20-%20ES%20-%20Branco%20%28%20Ross%20White%20%29%20HERO%20%281%29.webp" alt="Honda Biz 125"></div><div class="launch-info"><h3>Biz 125</h3><p>Praticidade para a rotina, economia e facilidade para pilotar.</p><a class="launch-action" href="https://wa.me/5521970993229?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20a%20Biz%20125.">Tenho interesse</a></div></article><article class="launch-card"><div class="launch-pic"><span class="launch-badge">LANÇAMENTO</span><img loading="lazy" src="https://www.honda.com.br/motos/sites/hda/files/2026-08/HDA_K2KH_ABS.webp" alt="Honda CB 300F Twister"></div><div class="launch-info"><h3>CB 300F Twister</h3><p>Visual marcante, desempenho e tecnologia para quem quer subir de categoria.</p><a class="launch-action" href="https://wa.me/5521970993229?text=Ol%C3%A1%2C%20vim%20pelo%20site%20e%20quero%20saber%20mais%20sobre%20a%20CB%20300F%20Twister.">Tenho interesse</a></div></article></div></div></section>
 <div class="guide-overlay" id="guideOverlay" role="dialog" aria-modal="true" aria-labelledby="guideTitle"><div class="guide-sheet"><div class="guide-grab"></div><div class="guide-top"><h3 id="guideTitle"></h3><button class="guide-close" id="guideClose" type="button" aria-label="Fechar">×</button></div><p class="guide-lead" id="guideLead"></p><div class="guide-points" id="guidePoints"></div><p class="guide-note" id="guideNote"></p><a class="guide-cta" id="guideCta" href="#">Quero saber mais</a></div></div><div id="catalogMount"><div class="loading">Carregando catálogo...</div></div>
