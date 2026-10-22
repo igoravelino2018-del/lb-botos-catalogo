@@ -10,14 +10,16 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply final mobile CTA design
+      - name: Apply definitive mobile CTA cleanup
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          css='''\n/* mobile CTA final v5 */\n@media(max-width:700px){\n  .mobile-hero{background:#fff!important}\n  .m-primary,.m-whatsapp{\n    display:flex!important;\n    align-items:center!important;\n    justify-content:center!important;\n    z-index:50!important;\n    top:90.95%!important;\n    height:6.7%!important;\n    border-radius:10px!important;\n    font-family:Inter,Arial,sans-serif!important;\n    font-size:clamp(12px,3.35vw,15px)!important;\n    font-weight:850!important;\n    letter-spacing:-.015em!important;\n    line-height:1!important;\n    text-decoration:none!important;\n    box-shadow:0 4px 10px rgba(0,0,0,.10),0 0 0 9px #fff!important;\n    overflow:hidden!important;\n  }\n  .m-primary{\n    left:3.6%!important;\n    width:45.6%!important;\n    background:linear-gradient(180deg,#d41320 0%,#bd0d19 100%)!important;\n    color:#fff!important;\n    border:1px solid #b40b16!important;\n  }\n  .m-primary:before{content:'Ver motos 0 km'!important;white-space:nowrap!important}\n  .m-primary:after{content:'›'!important;font-size:1.35em!important;margin-left:7px!important;margin-top:-1px!important}\n  .m-whatsapp{\n    left:51.2%!important;\n    width:45.2%!important;\n    background:#fff!important;\n    color:#b30d18!important;\n    border:2px solid #c8101e!important;\n  }\n  .m-whatsapp:before{content:'Falar no WhatsApp'!important;white-space:nowrap!important}\n  .m-primary:active,.m-whatsapp:active{transform:translateY(1px)!important}\n}\n'''
-          if '/* mobile CTA final v5 */' not in s:
+          if 'class="cta-clean-base"' not in s:
+              s=s.replace('<a class="m-hot m-primary"','<span class="cta-clean-base" aria-hidden="true"></span><a class="m-hot m-primary"',1)
+          css='''\n/* mobile CTA final v6 */\n@media(max-width:700px){\n  .cta-clean-base{\n    display:block!important;\n    position:absolute!important;\n    left:0!important;\n    top:90.25%!important;\n    width:100%!important;\n    height:9.1%!important;\n    background:#fff!important;\n    border-radius:0!important;\n    box-shadow:none!important;\n    z-index:45!important;\n    pointer-events:none!important;\n  }\n  .m-primary,.m-whatsapp{\n    display:flex!important;\n    align-items:center!important;\n    justify-content:center!important;\n    z-index:50!important;\n    top:91.05%!important;\n    height:6.55%!important;\n    border-radius:11px!important;\n    font-family:Inter,Arial,sans-serif!important;\n    font-size:clamp(12px,3.3vw,15px)!important;\n    font-weight:850!important;\n    letter-spacing:-.015em!important;\n    line-height:1!important;\n    text-decoration:none!important;\n    text-shadow:none!important;\n    outline:none!important;\n    filter:none!important;\n    box-shadow:0 3px 9px rgba(0,0,0,.10)!important;\n    overflow:hidden!important;\n  }\n  .m-primary{\n    left:3.2%!important;\n    width:46.2%!important;\n    background:linear-gradient(180deg,#d71422 0%,#c10d19 100%)!important;\n    color:#fff!important;\n    border:1px solid #b90b16!important;\n  }\n  .m-primary:before{content:'Ver motos 0 km'!important;white-space:nowrap!important}\n  .m-primary:after{content:'›'!important;font-size:1.35em!important;margin-left:7px!important;margin-top:-1px!important}\n  .m-whatsapp{\n    left:50.6%!important;\n    width:46.2%!important;\n    background:#fff!important;\n    color:#b30d18!important;\n    border:1.6px solid #c8101e!important;\n  }\n  .m-whatsapp:before{content:'Falar no WhatsApp'!important;white-space:nowrap!important}\n  .m-whatsapp:after{content:none!important}\n  .m-primary:active,.m-whatsapp:active{transform:translateY(1px)!important}\n}\n'''
+          if '/* mobile CTA final v6 */' not in s:
               s=s.replace('</style>',css+'\n</style>',1)
           p.write_text(s)
           PY
@@ -26,5 +28,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'fix: improve mobile hero CTA design' || exit 0
+          git commit -m 'fix: finalize clean mobile CTA strip' || exit 0
           git push
