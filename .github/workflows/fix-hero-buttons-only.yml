@@ -1,0 +1,31 @@
+name: Fix hero buttons only
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-hero-buttons-only.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Adjust hero buttons only
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          css='''\n/* hero buttons only */\n@media(max-width:700px){\n  .m-topwa{display:none!important}\n  .mobile-hero::before{content:"";position:absolute;left:58.4%;top:.6%;width:38.2%;height:6.2%;background:#fff;z-index:4;pointer-events:none}\n}\n'''
+          if '/* hero buttons only */' not in s:
+              s=s.replace('</style>',css+'</style>')
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "fix: remove duplicate mobile WhatsApp button"
+          git push
