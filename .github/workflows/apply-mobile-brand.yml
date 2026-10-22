@@ -10,19 +10,20 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply brand header
+      - name: Remove red seam below mobile hero
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          css=Path('assets/mobile-brand.css').read_text()
-          if '/* branded mobile header */' not in s:
+          css='''
+/* final mobile hero seam fix */
+@media(max-width:700px){
+  .buy-guide{position:relative;z-index:12;margin-top:-7px!important;border-top:0!important}
+}
+'''
+          if '/* final mobile hero seam fix */' not in s:
               s=s.replace('</style>', css+'\n</style>', 1)
-          old='<div class="mobile-hero"><img id="heroImageMobile"'
-          new='<div class="mobile-hero"><span class="brand-sub">MULTIMARCAS</span><span class="brand-accent"></span><img id="heroImageMobile"'
-          if old in s:
-              s=s.replace(old,new,1)
           p.write_text(s)
           PY
       - name: Commit
@@ -30,5 +31,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'ui: improve LB Motos Multimarcas mobile header'
+          git commit -m 'fix: remove red seam below mobile hero'
           git push
