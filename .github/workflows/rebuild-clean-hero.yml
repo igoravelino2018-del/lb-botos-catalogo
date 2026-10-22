@@ -1,4 +1,4 @@
-name: Rebuild clean hero
+name: Rebuild reference layout
 on:
   push:
     branches: [main]
@@ -11,53 +11,35 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Rebuild responsive hero
+      - name: Rebuild page top from reference
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          marker='</style>'
           css=r'''
-/* clean responsive hero v2 */
-.hero{background:#fff;overflow:hidden;border-bottom:1px solid #ececec}
-.hero-clean{max-width:1280px;margin:0 auto;min-height:520px;display:grid;grid-template-columns:47% 53%;align-items:stretch;position:relative;background:linear-gradient(112deg,#fff 0%,#fff 61%,#f8f4f4 61%,#f8f4f4 100%)}
-.hero-copy-clean{padding:58px 28px 52px 54px;display:flex;flex-direction:column;justify-content:center;position:relative;z-index:4}
-.hero-brandline{display:flex;align-items:center;gap:10px;margin-bottom:22px;color:#7f1d23;font-weight:900;letter-spacing:.03em}.hero-brandline .lb-clean{font-family:Georgia,serif;font-size:30px;font-weight:500;letter-spacing:0}.hero-brandline .multi-clean{font-size:11px;border-top:1px solid #8f2227;border-bottom:1px solid #8f2227;padding:4px 0;color:#3a3a3a}
-.hero-copy-clean h1{margin:0;color:#8f2227;font-size:clamp(42px,5.1vw,72px);line-height:.98;letter-spacing:-.045em;font-weight:950;max-width:620px}.hero-copy-clean p{margin:18px 0 0;color:#5f5f5f;font-size:clamp(15px,1.35vw,19px);line-height:1.4;max-width:560px}
-.hero-ctas-clean{display:flex;gap:10px;margin-top:28px;flex-wrap:wrap}.hero-cta-clean{min-height:50px;padding:0 22px;border-radius:11px;display:inline-flex;align-items:center;justify-content:center;text-decoration:none;font-size:14px;font-weight:900;transition:transform .18s ease,box-shadow .18s ease}.hero-cta-clean:hover{transform:translateY(-2px)}.hero-cta-primary{background:#8f2227;color:#fff;box-shadow:0 8px 20px #8f222728}.hero-cta-secondary{background:#fff;color:#242424;border:1px solid #dadada;box-shadow:0 7px 20px #0000000b}
-.hero-visual-clean{position:relative;min-height:520px;overflow:hidden}.hero-red-shape{position:absolute;inset:0 0 0 45%;background:linear-gradient(145deg,#9c2a30,#76191f);clip-path:polygon(26% 0,100% 0,100% 100%,0 100%);z-index:0}.hero-owner-clean{position:absolute;right:25%;bottom:0;height:94%;width:42%;object-fit:cover;object-position:50% 18%;z-index:2;filter:drop-shadow(0 8px 18px #0000001a)}.hero-bike-clean{position:absolute;object-fit:contain;z-index:3;filter:drop-shadow(0 15px 18px #00000035)}.hero-adv-clean{right:1%;bottom:4%;width:45%;max-height:255px}.hero-pcx-clean{left:0%;bottom:1%;width:46%;max-height:238px}.hero-model-note{position:absolute;right:18px;top:18px;z-index:5;background:#ffffffeb;border:1px solid #e5dddd;color:#7f1d23;padding:8px 10px;border-radius:999px;font-size:11px;font-weight:900;letter-spacing:.035em}
-@media(max-width:900px){.hero-clean{grid-template-columns:1fr;min-height:0;background:#fff}.hero-copy-clean{padding:34px 22px 26px;text-align:center;align-items:center}.hero-brandline{margin-bottom:15px}.hero-copy-clean h1{font-size:clamp(35px,9vw,54px);max-width:650px}.hero-copy-clean p{max-width:570px;margin-top:13px}.hero-ctas-clean{width:100%;justify-content:center;margin-top:21px}.hero-cta-clean{flex:1 1 210px;max-width:300px}.hero-visual-clean{min-height:390px;background:linear-gradient(160deg,#fff 0%,#fff 47%,#f7eded 47%,#f7eded 100%)}.hero-red-shape{inset:18% 0 0 48%;clip-path:polygon(26% 0,100% 0,100% 100%,0 100%)}.hero-owner-clean{height:88%;width:38%;right:31%;object-position:50% 15%}.hero-pcx-clean{left:1%;bottom:2%;width:44%;max-height:190px}.hero-adv-clean{right:1%;bottom:5%;width:45%;max-height:205px}.hero-model-note{top:12px;right:12px}}
-@media(max-width:560px){.hero-copy-clean{padding:26px 15px 20px}.hero-brandline .lb-clean{font-size:25px}.hero-copy-clean h1{font-size:37px}.hero-copy-clean p{font-size:14px}.hero-ctas-clean{display:grid;grid-template-columns:1fr 1fr;gap:8px}.hero-cta-clean{min-height:48px;padding:0 12px;font-size:13px;max-width:none}.hero-visual-clean{min-height:320px}.hero-owner-clean{height:86%;width:45%;right:27%;object-position:50% 15%}.hero-pcx-clean{left:-2%;bottom:1%;width:48%;max-height:150px}.hero-adv-clean{right:-2%;bottom:4%;width:49%;max-height:160px}.hero-model-note{font-size:9px;padding:6px 8px}}
+/* reference layout v4 */
+.site-topbar{background:#fff;border-bottom:1px solid #eee;position:relative;z-index:20}.site-topbar-inner{max-width:1180px;height:82px;margin:auto;padding:0 22px;display:flex;align-items:center;justify-content:space-between}.brand-lockup{line-height:.9}.brand-lockup strong{display:block;color:#c90712;font-size:36px;font-weight:950;letter-spacing:-.04em}.brand-lockup span{display:block;margin-top:7px;color:#272727;font-size:10px;font-weight:900;letter-spacing:.34em;padding-left:3px}.menu-btn{width:48px;height:48px;border:0;background:transparent;display:grid;place-items:center;cursor:pointer}.menu-btn i,.menu-btn i:before,.menu-btn i:after{display:block;width:30px;height:4px;background:#c90712;border-radius:999px;content:"";position:relative}.menu-btn i:before{position:absolute;top:-10px}.menu-btn i:after{position:absolute;top:10px}
+.ref-hero{background:#fff;overflow:hidden}.ref-hero-inner{max-width:1180px;margin:auto;display:grid;grid-template-columns:46% 54%;grid-template-areas:"copy media" "actions media";min-height:650px;background:linear-gradient(108deg,#fff 0 48%,#f2eeee 48% 71%,#a4141c 71% 100%);position:relative}.ref-copy{grid-area:copy;padding:52px 20px 8px 34px;z-index:3}.ref-kicker{color:#c90712;font-size:30px;font-weight:950;line-height:1}.ref-copy h1{margin:3px 0 12px;color:#111;font-size:clamp(50px,5.7vw,80px);line-height:.9;letter-spacing:-.055em;font-weight:950}.ref-copy h1 b{display:block;color:#c90712}.ref-copy p{margin:0;max-width:500px;color:#272727;font-size:21px;line-height:1.22}.benefits{display:grid;grid-template-columns:repeat(3,1fr);gap:14px;margin-top:26px}.benefit{text-align:center}.benefit svg{width:38px;height:38px;stroke:#c90712;fill:none;stroke-width:2.4}.benefit strong{display:block;font-size:12px;color:#111;margin-top:5px}.benefit small{display:block;font-size:10px;line-height:1.15;color:#444;margin-top:2px}.ref-media{grid-area:media;position:relative;min-height:650px;overflow:hidden}.ref-media:after{content:"HONDA";position:absolute;right:7%;top:25%;color:#fff;font-weight:950;font-size:34px;letter-spacing:.03em;text-shadow:0 2px 8px #0003}.ref-media img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center bottom}.ref-actions{grid-area:actions;align-self:end;padding:0 18px 28px 34px;display:grid;grid-template-columns:1.08fr .92fr;gap:10px;z-index:4}.ref-btn{min-height:64px;border-radius:13px;display:flex;align-items:center;justify-content:center;text-align:center;text-decoration:none;font-weight:950;font-size:18px;padding:0 16px}.ref-btn.primary{background:#c90712;color:#fff;box-shadow:0 8px 22px #c9071230}.ref-btn.secondary{background:#fff;color:#c90712;border:2px solid #c90712}
+.featured-models{background:#fff;border-top:1px solid #eee;padding:32px 20px 36px}.featured-inner{max-width:1180px;margin:auto}.featured-kicker{display:flex;align-items:center;gap:10px;color:#777;font-size:12px;font-weight:900;letter-spacing:.18em}.featured-kicker:before{content:"";width:46px;height:4px;background:#c90712;border-radius:99px}.featured-models h2{margin:8px 0 20px;font-size:40px;line-height:1;color:#111;letter-spacing:-.035em}.featured-grid{display:grid;grid-template-columns:repeat(6,1fr);gap:10px}.featured-card{background:#f7f7f7;border:1px solid #ececec;border-radius:14px;padding:10px 8px 11px;text-align:center;text-decoration:none;color:#111;min-width:0}.featured-card img{width:100%;height:92px;object-fit:contain;display:block}.featured-card strong{display:block;margin-top:8px;font-size:13px;line-height:1.1}.featured-more{display:flex;width:min(340px,100%);min-height:52px;margin:22px auto 0;border:2px solid #c90712;border-radius:999px;align-items:center;justify-content:center;color:#c90712;text-decoration:none;font-weight:900}
+.buy-guide,.launches{display:none!important}
+@media(max-width:800px){.site-topbar-inner{height:74px;padding:0 16px}.brand-lockup strong{font-size:31px}.ref-hero-inner{grid-template-columns:1fr;grid-template-areas:"copy" "media" "actions";min-height:0;background:#fff}.ref-copy{padding:28px 18px 14px}.ref-kicker{font-size:23px}.ref-copy h1{font-size:clamp(43px,12vw,60px);max-width:680px}.ref-copy p{font-size:18px;max-width:600px}.benefits{margin-top:20px;gap:8px}.benefit strong{font-size:11px}.benefit small{font-size:9px}.ref-media{min-height:470px;background:linear-gradient(150deg,#f7f4f4 0 46%,#b00f18 46% 100%)}.ref-media img{object-fit:cover;object-position:center center}.ref-media:after{font-size:28px;top:12%;right:8%}.ref-actions{padding:14px 16px 22px;grid-template-columns:1fr 1fr}.ref-btn{min-height:58px;font-size:16px}.featured-models{padding:26px 14px 30px}.featured-models h2{font-size:34px}.featured-grid{display:flex;overflow-x:auto;gap:9px;scroll-snap-type:x mandatory;padding-bottom:4px;scrollbar-width:none}.featured-grid::-webkit-scrollbar{display:none}.featured-card{flex:0 0 28%;scroll-snap-align:start}.featured-card img{height:82px}}
+@media(max-width:520px){.site-topbar-inner{height:70px}.brand-lockup strong{font-size:29px}.brand-lockup span{font-size:8px;letter-spacing:.28em}.menu-btn{width:44px;height:44px}.ref-copy{padding:24px 14px 10px}.ref-kicker{font-size:21px}.ref-copy h1{font-size:42px}.ref-copy p{font-size:17px}.benefits{grid-template-columns:repeat(3,1fr);gap:5px}.benefit svg{width:32px;height:32px}.ref-media{min-height:400px}.ref-actions{grid-template-columns:1.1fr .9fr;padding:12px 12px 20px;gap:8px}.ref-btn{min-height:54px;font-size:14px;padding:0 8px}.featured-card{flex-basis:31%}.featured-card img{height:74px}.featured-card strong{font-size:12px}.featured-models h2{font-size:31px}}
 '''
-          if '/* clean responsive hero v2 */' not in s:
-              s=s.replace(marker,css+'\n'+marker,1)
+          marker='/* reference layout v4 */'
+          if marker in s:
+              a=s.index(marker)
+              b=s.index('</style>',a)
+              s=s[:a]+css.strip()+"\n"+s[b:]
+          else:
+              s=s.replace('</style>',css+'\n</style>',1)
           start=s.index('<section class="hero" aria-label="LB MOTOS Honda 0 KM">')
-          end=s.index('<section class="buy-guide"', start)
-          hero=r'''<section class="hero" aria-label="LB MOTOS Honda 0 KM">
-  <div class="hero-clean">
-    <div class="hero-copy-clean">
-      <div class="hero-brandline"><span class="lb-clean">LB MOTOS</span><span class="multi-clean">MULTIMARCAS</span></div>
-      <h1>VENHA CONQUISTAR A SUA HONDA 0 KM AQUI NA LB MOTOS</h1>
-      <p>Escolha seu modelo, veja os lançamentos e fale com a nossa equipe para encontrar a melhor condição para você.</p>
-      <div class="hero-ctas-clean">
-        <a class="hero-cta-clean hero-cta-primary" href="#catalogMount">Ver motos 0 km</a>
-        <a class="hero-cta-clean hero-cta-secondary" href="https://wa.me/5521970993229">Falar no WhatsApp</a>
-      </div>
-    </div>
-    <div class="hero-visual-clean" aria-hidden="true">
-      <div class="hero-red-shape"></div>
-      <span class="hero-model-note">HONDA 0 KM</span>
-      <img class="hero-owner-clean" src="/assets/laysa.jpg?v=2" alt="">
-      <img class="hero-bike-clean hero-pcx-clean" src="https://www.honda.com.br/motos/sites/hda/files/2025-08/imagem-home-honda-pcx-branco.webp" alt="">
-      <img class="hero-bike-clean hero-adv-clean" src="https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-home-Honda-ADV-Vermelha-Lateral.webp" alt="">
-    </div>
-  </div>
-  <img id="heroImageDesktop" alt="" style="display:none">
-  <img id="heroImageMobile" alt="" style="display:none">
-</section>
+          end=s.index('<div id="catalogMount"',start)
+          top=r'''<header class="site-topbar"><div class="site-topbar-inner"><div class="brand-lockup"><strong>LB MOTOS</strong><span>MULTIMARCAS</span></div><button class="menu-btn" type="button" aria-label="Menu" onclick="document.getElementById('catalogMount').scrollIntoView({behavior:'smooth'})"><i></i></button></div></header>
+<section class="ref-hero" aria-label="LB MOTOS Honda 0 KM"><div class="ref-hero-inner"><div class="ref-copy"><div class="ref-kicker">SUA</div><h1><b>HONDA 0 KM</b>COMEÇA AQUI<br>NA LB MOTOS</h1><p>Financiamento, consórcio e as melhores condições para você sair de Honda nova.</p><div class="benefits"><div class="benefit"><svg viewBox="0 0 24 24"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18M7 15h4"/></svg><strong>FINANCIAMENTO</strong><small>COM ENTRADA<br>FACILITADA</small></div><div class="benefit"><svg viewBox="0 0 24 24"><circle cx="9" cy="8" r="3"/><circle cx="16" cy="9" r="2.5"/><path d="M3 19c0-4 2.5-6 6-6s6 2 6 6M13 19c.2-2.6 1.8-4.2 4.5-4.2 2.2 0 3.5 1.4 3.5 4.2"/></svg><strong>CONSÓRCIO</strong><small>PARCELAS<br>MENORES</small></div><div class="benefit"><svg viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><path d="m8 12 2.5 2.5L16 9"/></svg><strong>À VISTA</strong><small>ATENDIMENTO<br>DE VERDADE</small></div></div></div><div class="ref-media"><img src="/assets/hero-laysa-adv-pcx.jpg?v=4" alt="Laysa com Honda ADV 160 e Honda PCX 160"></div><div class="ref-actions"><a class="ref-btn primary" href="#catalogMount">Escolher minha Honda ›</a><a class="ref-btn secondary" href="https://wa.me/5521970993229">Falar no WhatsApp</a></div></div><img id="heroImageDesktop" alt="" style="display:none"><img id="heroImageMobile" alt="" style="display:none"></section>
+<section class="featured-models" aria-label="Modelos em destaque"><div class="featured-inner"><div class="featured-kicker">MODELOS EM DESTAQUE</div><h2>ESCOLHA SUA HONDA</h2><div class="featured-grid"><a class="featured-card" href="#catalogMount"><img src="https://www.honda.com.br/motos/sites/hda/files/2026-10/CG%20Titan%203.4%20FD%20Azul%20copy.webp" alt="Titan 160"><strong>Titan 160</strong></a><a class="featured-card" href="#catalogMount"><img src="https://www.honda.com.br/motos/sites/hda/files/2026-02/Moto-cg-vis%C3%A3o-lateral-direita.webp" alt="CG 160 50 Anos"><strong>CG 160<br>50 Anos</strong></a><a class="featured-card" href="#catalogMount"><img src="https://www.honda.com.br/motos/sites/hda/files/2026-05/Home%20-%20ES%20-%20Branco%20%28%20Ross%20White%20%29%20HERO%20%281%29.webp" alt="Biz 125"><strong>Biz 125</strong></a><a class="featured-card" href="#catalogMount"><img src="https://www.honda.com.br/motos/sites/hda/files/2025-08/imagem-home-honda-pcx-branco.webp" alt="PCX 160"><strong>PCX 160</strong></a><a class="featured-card" href="#catalogMount"><img src="https://www.honda.com.br/motos/sites/hda/files/2025-08/Imagem-home-Honda-ADV-Vermelha-Lateral.webp" alt="ADV 160"><strong>ADV 160</strong></a><a class="featured-card" href="#catalogMount"><img src="https://www.honda.com.br/motos/sites/hda/files/2026-08/HDA_K2KH_ABS.webp" alt="CB 300F Twister"><strong>CB 300F<br>Twister</strong></a></div><a class="featured-more" href="#catalogMount">Ver todos os modelos ›</a></div></section>
 '''
-          s=s[:start]+hero+s[end:]
+          s=s[:start]+top+s[end:]
           p.write_text(s)
           PY
       - name: Commit changes
@@ -65,5 +47,5 @@ jobs:
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
           git add index.html
-          git diff --cached --quiet || git commit -m "ui: rebuild clean responsive hero"
+          git diff --cached --quiet || git commit -m "ui: match approved homepage reference"
           git push
