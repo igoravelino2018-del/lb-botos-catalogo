@@ -1,0 +1,63 @@
+name: Final mobile CTA cleanup v2
+on:
+  push:
+    paths:
+      - '.github/workflows/final-mobile-cta-cleanup-v2.yml'
+permissions:
+  contents: write
+jobs:
+  apply:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Apply final mobile CTA cleanup
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          css='''
+/* final mobile CTA cleanup v2 */
+@media(max-width:700px){
+  .mobile-hero{background:#fff!important}
+  .mobile-hero img{clip-path:inset(0 0 8.6% 0)!important}
+  .m-primary,.m-whatsapp{
+    top:92.05%!important;
+    height:5.55%!important;
+    border-radius:7px!important;
+    box-shadow:none!important;
+    font-family:Inter,Arial,sans-serif!important;
+    font-weight:800!important;
+    font-size:clamp(11.5px,3vw,14px)!important;
+    letter-spacing:-.01em!important;
+    line-height:1!important;
+    z-index:20!important;
+  }
+  .m-primary{
+    left:4%!important;
+    width:44.8%!important;
+    background:#c8101e!important;
+    color:#fff!important;
+    border:1.5px solid #c8101e!important;
+  }
+  .m-primary:after{font-size:1.25em!important;margin-left:6px!important}
+  .m-whatsapp{
+    left:51.2%!important;
+    width:44.8%!important;
+    background:#fff!important;
+    color:#b30d18!important;
+    border:1.5px solid #b30d18!important;
+  }
+}
+'''
+          if '/* final mobile CTA cleanup v2 */' not in s:
+              s=s.replace('</style>',css+'\n</style>',1)
+              p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'fix: finalize clean mobile CTA area' || exit 0
+          git push
