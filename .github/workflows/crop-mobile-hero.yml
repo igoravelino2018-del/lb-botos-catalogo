@@ -1,0 +1,32 @@
+name: Crop mobile hero
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/crop-mobile-hero.yml'
+permissions:
+  contents: write
+jobs:
+  crop:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Crop payment strip from mobile hero
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          marker='/* mobile hero final crop */'
+          css='''\n/* mobile hero final crop */\n@media(max-width:700px){\n  .mobile-hero{height:163.5vw!important;overflow:hidden!important}\n  .m-primary{top:91.4%!important;height:7.1%!important}\n  .m-whatsapp{top:91.4%!important;height:7.1%!important}\n}\n'''
+          if marker not in s:
+              s=s.replace('</style>', css+'</style>', 1)
+              p.write_text(s)
+          PY
+      - name: Commit and push
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "fix: crop mobile hero after CTA buttons"
+          git push
