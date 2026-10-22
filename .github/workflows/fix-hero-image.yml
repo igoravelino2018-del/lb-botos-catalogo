@@ -1,0 +1,29 @@
+name: Fix hero image
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-hero-image.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Replace broken local hero image URL
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          s=s.replace('/assets/hero-laysa-adv-pcx.jpg?v=4','https://raw.githubusercontent.com/igoravelino2018-del/lb-botos-catalogo/main/assets/hero-laysa-adv-pcx.jpg')
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html
+          git diff --cached --quiet || git commit -m "fix: load hero image reliably"
+          git push
