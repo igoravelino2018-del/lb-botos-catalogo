@@ -1,0 +1,35 @@
+name: Remove mobile red line
+on:
+  push:
+    paths:
+      - '.github/workflows/remove-mobile-red-line.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cover red line below hero
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p=Path('index.html')
+          s=p.read_text()
+          css='''
+/* final mobile hero seam fix */
+@media(max-width:700px){
+  .buy-guide{position:relative;z-index:12;margin-top:-6px!important;border-top:0!important}
+}
+'''
+          if '/* final mobile hero seam fix */' not in s:
+            s=s.replace('</style>',css+'\n</style>',1)
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'fix: remove red seam below mobile hero'
+          git push
