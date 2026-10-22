@@ -1,0 +1,30 @@
+name: Fix header minimal
+on:
+  push:
+    paths:
+      - '.github/workflows/fix-header-minimal.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Restore original header and remove red sliver
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          p = Path('index.html')
+          s = p.read_text()
+          block = '''\n/* clean mobile header */\n@media(max-width:700px){\n  .mobile-hero::before{content:""!important;position:absolute!important;left:0!important;top:0!important;width:100%!important;height:8.8%!important;background:#fff!important;z-index:6!important;pointer-events:none!important}\n  .mobile-hero::after{content:"LB MOTOS";position:absolute;left:5.2%;top:2.2%;z-index:7;color:#c8101e;font-family:Inter,Arial,sans-serif;font-size:clamp(22px,7vw,34px);font-weight:900;line-height:1;letter-spacing:-.04em;pointer-events:none}\n  .m-topwa{display:none!important}\n}\n'''
+          s = s.replace(block, '\n')
+          s = s.replace('left:58.4%;top:.6%;width:38.2%;height:6.2%', 'left:58.4%;top:.6%;width:41.6%;height:6.2%')
+          p.write_text(s)
+          PY
+      - name: Commit
+        run: |
+          git config user.name 'github-actions[bot]'
+          git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
+          git add index.html
+          git commit -m 'fix: restore original mobile header and remove red sliver'
+          git push
