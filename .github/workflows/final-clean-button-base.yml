@@ -10,14 +10,14 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name: Apply clean base behind mobile buttons
+      - name: Apply final mobile button polish
         run: |
           python - <<'PY'
           from pathlib import Path
           p=Path('index.html')
           s=p.read_text()
-          css='''\n/* final white base behind mobile CTAs */\n@media(max-width:700px){\n  .m-primary,.m-whatsapp{\n    z-index:30!important;\n    top:91.45%!important;\n    height:6.0%!important;\n    border-radius:8px!important;\n    box-shadow:0 0 0 12px #fff!important;\n  }\n  .m-primary{\n    left:4.6%!important;\n    width:44.4%!important;\n    background:#c8101e!important;\n    color:#fff!important;\n    border:1.5px solid #c8101e!important;\n  }\n  .m-whatsapp{\n    left:51.3%!important;\n    width:44.1%!important;\n    background:#fff!important;\n    color:#b30d18!important;\n    border:1.5px solid #b30d18!important;\n  }\n}\n'''
-          if '/* final white base behind mobile CTAs */' not in s:
+          css='''\n/* mobile button polish v4 */\n@media(max-width:700px){\n  .mobile-hero{background:#fff!important}\n  .mobile-hero img{clip-path:inset(0 0 8.8% 0)!important}\n  .m-primary,.m-whatsapp{\n    z-index:40!important;\n    top:92.1%!important;\n    height:5.35%!important;\n    border-radius:6px!important;\n    box-shadow:none!important;\n    font-family:Inter,Arial,sans-serif!important;\n    font-weight:800!important;\n    font-size:clamp(11px,3vw,14px)!important;\n    letter-spacing:-.01em!important;\n    line-height:1!important;\n  }\n  .m-primary{\n    left:4%!important;\n    width:44.7%!important;\n    background:#c8101e!important;\n    color:#fff!important;\n    border:1px solid #c8101e!important;\n  }\n  .m-primary:after{font-size:1.18em!important;margin-left:6px!important}\n  .m-whatsapp{\n    left:51.3%!important;\n    width:44.7%!important;\n    background:#fff!important;\n    color:#b30d18!important;\n    border:1px solid #b30d18!important;\n  }\n}\n'''
+          if '/* mobile button polish v4 */' not in s:
               s=s.replace('</style>',css+'\n</style>',1)
           p.write_text(s)
           PY
@@ -26,5 +26,5 @@ jobs:
           git config user.name 'github-actions[bot]'
           git config user.email '41898282+github-actions[bot]@users.noreply.github.com'
           git add index.html
-          git commit -m 'fix: add clean white base behind mobile CTAs' || exit 0
+          git commit -m 'fix: polish final mobile CTA buttons' || exit 0
           git push
