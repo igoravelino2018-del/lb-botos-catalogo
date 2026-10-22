@@ -38,7 +38,27 @@
   .m-topwa{display:none!important}
 }
 
-@media(max-width:700px){.buy-guide{position:relative;z-index:12;margin-top:-7px!important;border-top:0!important}}</style>
+@media(max-width:700px){.buy-guide{position:relative;z-index:12;margin-top:-7px!important;border-top:0!important}}
+/* polished mobile hero buttons */
+@media(max-width:700px){
+  .m-primary,.m-whatsapp{
+    display:flex!important;align-items:center!important;justify-content:center!important;
+    text-decoration:none!important;line-height:1!important;
+    font-family:Inter,Arial,sans-serif!important;font-weight:900!important;
+    font-size:clamp(12px,3.35vw,16px)!important;letter-spacing:-.02em!important;
+    border-radius:14px!important;box-shadow:0 7px 18px #00000024!important;
+    overflow:hidden!important;z-index:9!important;
+    transition:transform .16s ease,box-shadow .16s ease!important;
+  }
+  .m-primary{background:linear-gradient(180deg,#d20b18 0%,#b40712 100%)!important;color:#fff!important;border:1px solid #9f0710!important}
+  .m-primary:before{content:'Ver motos 0 km';white-space:nowrap}
+  .m-primary:after{content:'›';font-size:1.55em;line-height:.7;margin-left:8px;margin-top:-1px}
+  .m-whatsapp{background:#fff!important;color:#b40712!important;border:2px solid #b40712!important}
+  .m-whatsapp:before{content:'Falar no WhatsApp';white-space:nowrap}
+  .m-primary:active,.m-whatsapp:active{transform:translateY(1px) scale(.99)!important;box-shadow:0 3px 10px #00000020!important}
+}
+
+</style>
 </head>
 <body>
 <section class="hero" aria-label="LB MOTOS Honda 0 KM"><div class="desktop-hero"><img id="heroImageDesktop" alt="LB MOTOS com Laysa, Honda ADV e Honda PCX"><p class="desktop-subtitle">As melhores condições, atendimento de verdade e toda a qualidade Honda para você.</p><a class="hero-hot hero-primary" href="#catalogMount" aria-label="Ver motos 0 km"></a><a class="hero-hot hero-whatsapp" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a></div><div class="mobile-hero"><span class="brand-sub">MULTIMARCAS</span><span class="brand-accent"></span><img id="heroImageMobile" alt="LB MOTOS: Honda 0 KM com Laysa, ADV e PCX"><a class="m-hot m-topwa" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a><a class="m-hot m-primary" href="#catalogMount" aria-label="Ver motos 0 km"></a><a class="m-hot m-whatsapp" href="https://wa.me/5521970993229" aria-label="Falar no WhatsApp"></a></div></section>
