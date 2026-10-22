@@ -1,0 +1,45 @@
+name: Fix broken hero assets
+on:
+  push:
+    branches: [main]
+    paths:
+      - '.github/workflows/fix-broken-hero.yml'
+permissions:
+  contents: write
+jobs:
+  fix:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name: Rebuild hero image files and harden catalog links
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          import base64,re
+
+          def rebuild(src_dir, count, out_file):
+              data=''.join(Path(src_dir, f'part{i:02d}.txt').read_text() for i in range(1,count+1))
+              data=re.sub(r'\s+','',data)
+              raw=base64.b64decode(data)
+              Path(out_file).write_bytes(raw)
+              print(out_file, len(raw), raw[:12])
+
+          rebuild('assets/hero-chunks',7,'assets/hero-desktop-v3.webp')
+          rebuild('assets/mobile-hero-chunks',4,'assets/hero-mobile-v3.webp')
+
+          p=Path('index.html')
+          s=p.read_text()
+          s=s.replace('/assets/hero-desktop-v2.webp?v=20','/assets/hero-desktop-v3.webp?v=21')
+          s=s.replace('/assets/hero-mobile-v2.webp?v=20','/assets/hero-mobile-v3.webp?v=21')
+          s=s.replace('href="#catalogFrame">Ver todos os modelos','href="/catalog-core.html?v=4">Ver todos os modelos')
+          s=s.replace('href="#catalogFrame">Escolher minha Honda','href="/catalog-core.html?v=4">Escolher minha Honda')
+          p.write_text(s)
+          PY
+          file assets/hero-desktop-v3.webp assets/hero-mobile-v3.webp
+      - name: Commit repaired assets
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add index.html assets/hero-desktop-v3.webp assets/hero-mobile-v3.webp
+          git diff --cached --quiet || git commit -m "fix: rebuild valid hero assets and catalog links"
+          git push
